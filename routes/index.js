@@ -6,9 +6,9 @@ import order from './order.js'
 
 const router = new Router()
 
-router.use('/market/fbs/stocks', stocks)
-router.use('/market/fbs/cart', cart)
-router.use('/market/fbs/order', order)
+router.use('/market/dbs/stocks', stocks)
+router.use('/market/dbs/cart', cart)
+router.use('/market/dbs/order', order)
 // router.use('/market/orders', orders)
 
 export default router
