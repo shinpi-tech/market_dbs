@@ -71,7 +71,7 @@ class CartController {
 					})
 			}
 			cart.items = items_result
-			return res.json(cart)
+			return res.json({ cart: cart })
 		} catch (e) {
 			next(ApiError.badRequest(e))
 		}
