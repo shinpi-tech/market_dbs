@@ -9,6 +9,39 @@ class CartController {
 			if (process.env.AUTH_TOKEN !== req.headers.authorization) return next(ApiError.forbidden('Токен авторизации не верный.'))
 			const products = req.body.cart.items
 			const items_result = []
+			const cart = {
+				deliveryCurrency: "RUR",
+				deliveryOptions: [
+					{
+						id: '1',
+						price: 0,
+						serviceName: 'SHINPI.RU',
+						type: 'DELIVERY',
+						dates: {
+							fromDate: '10-04-2023',
+							toData: '12-04-2023',
+							intervals: [
+								{
+									data: '10-04-2023',
+									fromTime: '10:00',
+									toTime: '21:00'
+								},
+								{
+									data: '11-04-2023',
+									fromTime: '10:00',
+									toTime: '21:00'
+								},
+								{
+									data: '12-04-2023',
+									fromTime: '10:00',
+									toTime: '21:00'
+								}
+							]
+						}
+					}
+				],
+				paymentMethods: ["YANDEX"]
+			}
 			for (const el of products) {
                 let count = 0
 				await axios.get('https://api.shinpi.ru/kolobox/products/', {
@@ -20,9 +53,9 @@ class CartController {
 						items_result.push({
 							feedId: el.feedId,
 							offerId: el.offerId,
+							delivery: true,
 							count: result.data.count_local === null ? 0 : count,
-							warehouseId: el.warehouseId,
-							partnerWarehouseId: el.partnerWarehouseId
+							sellerInn: '526106573390'
 						})
 					})
 					.catch(async () => {
@@ -31,13 +64,14 @@ class CartController {
 						items_result.push({
 							feedId: el.feedId,
 							offerId: el.offerId,
+							delivery: true,
 							count: count,
-							warehouseId: el.warehouseId,
-							partnerWarehouseId: el.partnerWarehouseId
+							sellerInn: '526106573390'
 						})
 					})
 			}
-			return res.json({ cart: { items: items_result } })
+			cart.items = items_result
+			return res.json(cart)
 		} catch (e) {
 			next(ApiError.badRequest(e))
 		}
