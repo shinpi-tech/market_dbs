@@ -1,79 +1,40 @@
+import api from '../service/api/http.js'
 import ApiError from '../service/error/ApiError.js'
-import axios from 'axios'
 import dotenv from 'dotenv'
 dotenv.config()
 
 class CartController {
 	async post (req, res, next) {
 		try {
-			if (process.env.AUTH_TOKEN !== req.headers.authorization) return next(ApiError.forbidden('Токен авторизации не верный.'))
-			const products = req.body.cart.items
-			const items_result = []
-			const cart = {
-				deliveryCurrency: "RUR",
-				deliveryOptions: [
-					{
-						id: '1',
-						price: 0,
-						serviceName: 'SHINPI.RU',
-						type: 'DELIVERY',
-						dates: {
-							fromDate: '10-04-2023',
-							toData: '12-04-2023',
-							intervals: [
-								{
-									data: '10-04-2023',
-									fromTime: '10:00',
-									toTime: '21:00'
-								},
-								{
-									data: '11-04-2023',
-									fromTime: '10:00',
-									toTime: '21:00'
-								},
-								{
-									data: '12-04-2023',
-									fromTime: '10:00',
-									toTime: '21:00'
-								}
-							]
-						}
-					}
-				],
-				paymentMethods: ["YANDEX"]
-			}
-			for (const el of products) {
-                let count = 0
-				await axios.get('https://api.shinpi.ru/kolobox/products/', {
-					params: { id: el.offerId },
-					headers: { token: process.env.TOKEN_API }
+			if (process.env.AUTH_TOKEN_MAIN !== req.headers.authorization && process.env.AUTH_TOKEN_PFO !== req.headers.authorization)
+				throw ApiError.forbidden('Токен авторизации не верный.')
+			
+			const items = req.body.cart.items
+			const ids = [...new Set(items.map(el => el.offerId))]
+			const result = []
+			const stocks = (await api.post('https://api.shinpi.ru/stocks/products/', ids, {
+				params: {
+					limit: 500,
+					storage: '64c7d6f9e9febe6aa7cf946a'
+				}
+			})).data
+
+			for (const el of items) {
+				const pr = await stocks.find(find => find.product === el.offerId)
+				const count = pr ? pr.stocks[0].quantity < 4 ? 0 : pr.stocks[0].quantity : 0
+
+				result.push({
+					feedId: el.feedId,
+					offerId: el.offerId,
+					count: count,
+					warehouseId: el.warehouseId,
+					partnerWarehouseId: el.partnerWarehouseId
 				})
-					.then(result => {
-						count = result.data.count_local < 4 ? 0 : result.data.count_local
-						items_result.push({
-							feedId: el.feedId,
-							offerId: el.offerId,
-							delivery: true,
-							count: result.data.count_local === null ? 0 : count,
-							sellerInn: '526106573390'
-						})
-					})
-					.catch(async () => {
-						const product = (await axios.get('https://api.shinpi.ru/catalog/products/' + el.offerId)).data
-						count = product.quantity < 4 ? 0 : product.quantity
-						items_result.push({
-							feedId: el.feedId,
-							offerId: el.offerId,
-							delivery: true,
-							count: count,
-							sellerInn: '526106573390'
-						})
-					})
 			}
-			cart.items = items_result
-			return res.json({ cart: cart })
+
+			return res.json({ cart: { items: result } })
 		} catch (e) {
-			next(ApiError.badRequest(e))
+			next(e)
 		}
 	}
 
