@@ -27,12 +27,26 @@ class CartController {
 					feedId: el.feedId,
 					offerId: el.offerId,
 					count: count,
-					warehouseId: el.warehouseId,
-					partnerWarehouseId: el.partnerWarehouseId
+					delivery: true,
+					sellerInn: "526106573390"
 				})
 			}
 
-			return res.json({ cart: { items: result } })
+			return res.json({
+				cart: {
+					deliveryCurrency: 'RUB',
+					deliveryOptions: [],
+					items: result,
+					paymentMethods: [
+						"YANDEX",
+						"APPLE_PAY",
+						"GOOGLE_PAY",
+						"TINKOFF_CREDIT",
+						"TINKOFF_INSTALLMENTS",
+						"SBP"
+					]
+				}
+			})
 		} catch (e) {
 			next(e)
 		}
