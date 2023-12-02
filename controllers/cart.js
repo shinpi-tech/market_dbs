@@ -37,7 +37,16 @@ class CartController {
 					deliveryOptions: [{
 						price: 0,
 						type: "PICKUP",
-						serviceName: "yandex_delivery"
+						serviceName: "yandex_delivery",
+						dates: {
+							fromDate: "10-12-2023",
+							toDate: "12-12-2023"
+						},
+						outlets: [
+							{
+								code: "yandex_delivery",
+							}
+						]
 					}],
 					items: result,
 					paymentMethods: [
