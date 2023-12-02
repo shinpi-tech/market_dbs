@@ -44,7 +44,7 @@ class CartController {
 						},
 						outlets: [
 							{
-								code: "yandex_delivery",
+								code: "1",
 							}
 						]
 					}],
