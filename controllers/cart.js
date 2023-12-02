@@ -40,7 +40,19 @@ class CartController {
 						serviceName: "Доставка магазина",
 						dates: {
 							fromDate: "05-12-2023",
-							toDate: "07-12-2023"
+							toDate: "06-12-2023",
+							intervals: [
+								{
+									date: "05-12-2023",
+									fromTime: "09:00",
+									toTime: "21:00"
+								},
+								{
+									date: "06-12-2023",
+									fromTime: "09:00",
+									toTime: "21:00"
+								}
+							]
 						},
 						paymentMethods: [
 							"YANDEX",
