@@ -39,8 +39,8 @@ class CartController {
 						type: "DELIVERY",
 						serviceName: "Доставка магазина",
 						dates: {
-							fromDate: "10-12-2023",
-							toDate: "12-12-2023"
+							fromDate: "05-12-2023",
+							toDate: "07-12-2023"
 						},
 						paymentMethods: [
 							"YANDEX",
