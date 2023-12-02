@@ -34,7 +34,7 @@ class CartController {
 
 			return res.json({
 				cart: {
-					deliveryCurrency: "RUB",
+					deliveryCurrency: "RUR",
 					deliveryOptions: [],
 					items: result,
 					paymentMethods: [
