@@ -36,16 +36,19 @@ class CartController {
 					deliveryCurrency: "RUR",
 					deliveryOptions: [{
 						price: 0,
-						type: "PICKUP",
-						serviceName: "yandex_delivery",
+						type: "DELIVERY",
+						serviceName: "Доставка магазина",
 						dates: {
 							fromDate: "10-12-2023",
 							toDate: "12-12-2023"
 						},
-						outlets: [
-							{
-								code: "1",
-							}
+						paymentMethods: [
+							"YANDEX",
+							"APPLE_PAY",
+							"GOOGLE_PAY",
+							"TINKOFF_CREDIT",
+							"TINKOFF_INSTALLMENTS",
+							"SBP"
 						]
 					}],
 					items: result,
