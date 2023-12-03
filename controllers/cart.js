@@ -18,6 +18,15 @@ class CartController {
 					storage: '64c7d6f9e9febe6aa7cf946a'
 				}
 			})).data
+			
+			const today = new Date()
+			let futureDate = new Date(today)
+			futureDate.setDate(today.getDate() + 3)
+			const day = futureDate.getDate().toString().padStart(2, '0')
+			const month = (futureDate.getMonth() + 1).toString().padStart(2, '0')
+			const year = futureDate.getFullYear()
+
+			const formattedDate = `${day}-${month}-${year}`
 
 			for (const el of items) {
 				const pr = await stocks.find(find => find.product === el.offerId)
@@ -40,16 +49,11 @@ class CartController {
 						type: "DELIVERY",
 						serviceName: "Доставка магазина",
 						dates: {
-							fromDate: "05-12-2023",
-							toDate: "06-12-2023",
+							fromDate: formattedDate,
+							toDate: formattedDate,
 							intervals: [
 								{
-									date: "05-12-2023",
-									fromTime: "09:00",
-									toTime: "21:00"
-								},
-								{
-									date: "06-12-2023",
+									date: formattedDate,
 									fromTime: "09:00",
 									toTime: "21:00"
 								}
