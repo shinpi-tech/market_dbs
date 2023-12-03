@@ -24,7 +24,7 @@ class OrderController {
 			
 			return await api.post('https://api.shinpi.ru/stocks/orders/', orderProducts)
 				.then(async response => {
-					let notification = `✅ Заказ Яндекс Маркет <code>${order_number}</code> на сумму <code>${req.body.order.buyerItemsTotal}</code> ₽. Отгрузка: ${req.body.order.delivery.shipments[0].shipmentDate}\r\n`
+					let notification = `✅ Заказ Яндекс Маркет DBS <code>${order_number}</code> на сумму <code>${req.body.order.buyerItemsTotal}</code> ₽. Отгрузка: ${req.body.order.delivery.shipments[0].shipmentDate}\r\n`
 
 					for (const el of items) {
 						if (response.data.ok.includes(el.offerId)) {
@@ -43,7 +43,7 @@ class OrderController {
 				.catch(async error => {
 					await api.post('https://api.shinpi.ru/notification/telegram/', {
 						id: [263739791, 340142332],
-						message: `☢️ Заказ Яндекс Маркет <code>${order_number}</code>. Возникла проблема при заказе товаров со склада. <code>\n\n${error.response?.data?.error}</code>`
+						message: `☢️ Заказ Яндекс Маркет DBS <code>${order_number}</code>. Возникла проблема при заказе товаров со склада. <code>\n\n${error.response?.data?.error}</code>`
 					})
 					return res.json({ order: result })
 				})
