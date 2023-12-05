@@ -18,15 +18,6 @@ class CartController {
 					storage: '64c7d6f9e9febe6aa7cf946a'
 				}
 			})).data
-			
-			const today = new Date()
-			let futureDate = new Date(today)
-			futureDate.setDate(today.getDate() + 3)
-			const day = futureDate.getDate().toString().padStart(2, '0')
-			const month = (futureDate.getMonth() + 1).toString().padStart(2, '0')
-			const year = futureDate.getFullYear()
-
-			const formattedDate = `${day}-${month}-${year}`
 
 			for (const el of items) {
 				const pr = await stocks.find(find => find.product === el.offerId)
@@ -36,7 +27,6 @@ class CartController {
 					feedId: el.feedId,
 					offerId: el.offerId,
 					count: count,
-					delivery: true,
 					sellerInn: "526106573390"
 				})
 			}
@@ -44,32 +34,7 @@ class CartController {
 			return res.json({
 				cart: {
 					deliveryCurrency: "RUR",
-					deliveryOptions:[
-						{
-							price: 0,
-							type: "PICKUP",
-							serviceName: "yandex_delivery",
-							dates: {
-								fromDate: formattedDate,
-								toDate: formattedDate,
-								intervals: [
-									{
-										date: formattedDate,
-										fromTime: "09:00",
-										toTime:" 21:00"
-									}
-								]
-							},
-							paymentMethods: [
-								"YANDEX",
-								"APPLE_PAY",
-								"GOOGLE_PAY",
-								"TINKOFF_CREDIT",
-								"TINKOFF_INSTALLMENTS",
-								"SBP"
-							]
-						}
-					],
+					deliveryOptions:[],
 					items: result,
 					paymentMethods: [
 						"YANDEX",
