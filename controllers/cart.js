@@ -51,13 +51,7 @@ class CartController {
 						dates: {
 							fromDate: formattedDate,
 							toDate: formattedDate,
-							intervals: [
-								{
-									date: formattedDate,
-									fromTime: "09:00",
-									toTime: "21:00"
-								}
-							]
+							intervals: []
 						},
 						outlets: [
 							{
