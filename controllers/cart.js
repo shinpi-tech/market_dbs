@@ -9,6 +9,15 @@ class CartController {
 			if (process.env.AUTH_TOKEN_MAIN !== req.headers.authorization && process.env.AUTH_TOKEN_PFO !== req.headers.authorization)
 				throw ApiError.forbidden('Токен авторизации не верный.')
 			
+			const today = new Date()
+			let futureDate = new Date(today)
+			futureDate.setDate(today.getDate() + 3)
+			const day = futureDate.getDate().toString().padStart(2, '0')
+			const month = (futureDate.getMonth() + 1).toString().padStart(2, '0')
+			const year = futureDate.getFullYear()
+   
+			const formattedDate = `${day}-${month}-${year}`
+			
 			const items = req.body.cart.items
 			const ids = [...new Set(items.map(el => el.offerId))]
 			const result = []
@@ -34,10 +43,29 @@ class CartController {
 			return res.json({
 				cart: {
 					deliveryCurrency: "RUR",
-					deliveryOptions:[{
+					deliveryOptions: [{
 						price: 0,
-						type: "PICKUP",
-						serviceName: "yandex_delivery"
+						type: "DELIVERY",
+						serviceName: "Доставка магазина",
+						dates: {
+							fromDate: formattedDate,
+							toDate: formattedDate,
+							intervals: [
+								{
+									date: formattedDate,
+									fromTime: "09:00",
+									toTime: "21:00"
+								}
+							]
+						},
+						paymentMethods: [
+							"YANDEX",
+							"APPLE_PAY",
+							"GOOGLE_PAY",
+							"TINKOFF_CREDIT",
+							"TINKOFF_INSTALLMENTS",
+							"SBP"
+						]
 					}],
 					items: result,
 					paymentMethods: [
