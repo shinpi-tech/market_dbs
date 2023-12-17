@@ -34,7 +34,11 @@ class CartController {
 			return res.json({
 				cart: {
 					deliveryCurrency: "RUR",
-					deliveryOptions:[],
+					deliveryOptions:[{
+						price: 0,
+						type: "PICKUP",
+						serviceName: "yandex_delivery"
+					}],
 					items: result,
 					paymentMethods: [
 						"YANDEX",
