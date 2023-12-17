@@ -50,8 +50,7 @@ class CartController {
 						serviceName: "yandex_delivery",
 						dates: {
 							fromDate: formattedDate,
-							toDate: formattedDate,
-							intervals: []
+							toDate: formattedDate
 						},
 						outlets: [
 							{
