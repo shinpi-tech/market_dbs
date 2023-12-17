@@ -49,7 +49,11 @@ class CartController {
 						type: "PICKUP",
 						serviceName: "yandex_delivery",
 						dates: {},
-						outlets: [],
+						outlets: [
+							{
+								code: "yandex_delivery"
+							}
+						],
 						paymentMethods: [
 							"YANDEX",
 							"APPLE_PAY",
