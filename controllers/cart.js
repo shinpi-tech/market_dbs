@@ -48,22 +48,8 @@ class CartController {
 						price: 0,
 						type: "PICKUP",
 						serviceName: "yandex_delivery",
-						dates: {
-							fromDate: formattedDate,
-							toDate: formattedDate,
-							intervals: [
-								{
-									date: formattedDate,
-									fromTime: "09:00",
-									toTime: "21:00"
-								}
-							]
-						},
-						outlets: [
-							{
-								code: "yandex_delivery"
-							}
-						],
+						dates: {},
+						outlets: [],
 						paymentMethods: [
 							"YANDEX",
 							"APPLE_PAY",
