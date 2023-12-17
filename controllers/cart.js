@@ -46,7 +46,7 @@ class CartController {
 					deliveryOptions: [{
 						price: 0,
 						type: "DELIVERY",
-						serviceName: "Доставка магазина",
+						serviceName: "yandex_delivery",
 						dates: {
 							fromDate: formattedDate,
 							toDate: formattedDate,
