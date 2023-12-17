@@ -44,30 +44,7 @@ class CartController {
 			return res.json({
 				cart: {
 					deliveryCurrency: "RUR",
-					deliveryOptions: [{
-						price: 0,
-						type: "DELIVERY",
-						serviceName: "yandex_delivery",
-						dates: {
-							fromDate: formattedDate,
-							toDate: formattedDate,
-							intervals: [
-								{
-									date: formattedDate,
-									fromTime: "09:00",
-									toTime: "21:00"
-								}
-							]
-						},
-						paymentMethods: [
-							"YANDEX",
-							"APPLE_PAY",
-							"GOOGLE_PAY",
-							"TINKOFF_CREDIT",
-							"TINKOFF_INSTALLMENTS",
-							"SBP"
-						]
-					}],
+					deliveryOptions: [],
 					items: result,
 					paymentMethods: [
 						"YANDEX",
