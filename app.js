@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import router from './routes/index.js'
 import error from './middleware/error.js'
 import axios from 'axios'
-import morgan from 'morgan'
+// import morgan from 'morgan'
 dotenv.config()
 
 const PORT = process.env.PORT
@@ -15,7 +15,7 @@ app.use(express.json())
 // 	origin: process.env.CLIENT_URL,
 // 	credentials: true
 // }))
-app.use(morgan('common'))
+// app.use(morgan('common'))
 app.use(router)
 app.use(error)
 
