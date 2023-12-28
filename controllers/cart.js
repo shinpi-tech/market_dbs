@@ -41,7 +41,7 @@ class CartController {
 				})
 
 				if (el.count > 1) {
-					console.log(`${el.offerName} - ${el.count} шт.	${el.offerId}	${req.body.cart.delivery.region.name}`)
+					console.log(`${el.offerName} - ${el.count} шт.	${el.offerId}	${req.body.cart.delivery.region.name}	${new Date()}`)
 				}
 			}
 
