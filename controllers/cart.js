@@ -35,7 +35,6 @@ class CartController {
 				result.push({
 					feedId: el.feedId,
 					offerId: el.offerId,
-					delivery: true,
 					count: count,
 					sellerInn: "526106573390"
 				})
