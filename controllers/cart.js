@@ -47,7 +47,22 @@ class CartController {
 			return res.json({
 				cart: {
 					deliveryCurrency: "RUR",
-					deliveryOptions: [],
+					deliveryOptions: [{
+						price: 0,
+						type: "DELIVERY",
+						serviceName: "Своя доставка",
+						dates: {
+							fromDate: formattedDate,
+							toDate: formattedDate,
+							intervals: [
+								{
+									data: formattedDate,
+									fromTime: '09:00',
+									toTime: '18:00'
+								}
+							]
+						}
+					}],
 					// deliveryOptions: [{
 					// 	price: 0,
 					// 	type: "PICKUP",
