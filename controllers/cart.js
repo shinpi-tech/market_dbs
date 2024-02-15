@@ -52,7 +52,7 @@ class CartController {
 							toDate: formattedDate,
 							intervals: [
 								{
-									data: formattedDate,
+									date: formattedDate,
 									fromTime: "10:00",
 									toTime: "23:00"
 								}
