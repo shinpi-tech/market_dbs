@@ -44,16 +44,18 @@ class CartController {
 				cart: {
 					deliveryCurrency: "RUR",
 					deliveryOptions: [{
-						type: "PICKUP",
+						type: "DELIVERY",
 						price: 0,
-						serviceName: "",
+						serviceName: "Своя доставка",
 						dates: {
 							fromDate: formattedDate,
-							toDate: formattedDate
+							toDate: formattedDate,
+							intervals: {
+								data: formattedDate,
+								fromTime: "10:00",
+								toTime: "23:00"
+							}
 						},
-						outlets: [
-							{ code: "1" }
-						],
 						paymentMethods: [
 							"YANDEX",
 							"APPLE_PAY",
