@@ -11,7 +11,7 @@ class CartController {
 			
 			const today = new Date()
 			let futureDate = new Date(today)
-			futureDate.setDate(today.getDate() + 3)
+			futureDate.setDate(today.getDate() + 2)
 			const day = futureDate.getDate().toString().padStart(2, '0')
 			const month = (futureDate.getMonth() + 1).toString().padStart(2, '0')
 			const year = futureDate.getFullYear()
