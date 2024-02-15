@@ -50,11 +50,13 @@ class CartController {
 						dates: {
 							fromDate: formattedDate,
 							toDate: formattedDate,
-							intervals: {
-								data: formattedDate,
-								fromTime: "10:00",
-								toTime: "23:00"
-							}
+							intervals: [
+								{
+									data: formattedDate,
+									fromTime: "10:00",
+									toTime: "23:00"
+								}
+							]
 						},
 						paymentMethods: [
 							"YANDEX",
