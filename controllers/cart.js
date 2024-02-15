@@ -43,43 +43,21 @@ class CartController {
 			return res.json({
 				cart: {
 					deliveryCurrency: "RUR",
-					deliveryOptions: [{
-						type: "DELIVERY",
-						price: 0,
-						serviceName: "Своя доставка",
-						dates: {
-							fromDate: formattedDate,
-							toDate: formattedDate,
-							intervals: [
-								{
-									date: formattedDate,
-									fromTime: "10:00",
-									toTime: "23:00"
-								}
-							]
-						},
-						paymentMethods: [
-							"YANDEX",
-							"APPLE_PAY",
-							"GOOGLE_PAY",
-							"TINKOFF_CREDIT",
-							"TINKOFF_INSTALLMENTS",
-							"SBP"
-						]
-					}],
 					// deliveryOptions: [{
+					// 	type: "DELIVERY",
 					// 	price: 0,
-					// 	type: "PICKUP",
-					// 	serviceName: "yandex_delivery",
+					// 	serviceName: "Своя доставка",
 					// 	dates: {
 					// 		fromDate: formattedDate,
-					// 		toDate: formattedDate
+					// 		toDate: formattedDate,
+					// 		intervals: [
+					// 			{
+					// 				date: formattedDate,
+					// 				fromTime: "10:00",
+					// 				toTime: "23:00"
+					// 			}
+					// 		]
 					// 	},
-					// 	outlets: [
-					// 		{
-					// 			code: "yandex_delivery"
-					// 		}
-					// 	],
 					// 	paymentMethods: [
 					// 		"YANDEX",
 					// 		"APPLE_PAY",
@@ -89,6 +67,28 @@ class CartController {
 					// 		"SBP"
 					// 	]
 					// }],
+					deliveryOptions: [{
+						price: 0,
+						type: "PICKUP",
+						serviceName: "yandex_delivery",
+						dates: {
+							fromDate: formattedDate,
+							toDate: formattedDate
+						},
+						outlets: [
+							{
+								code: "yandex_delivery"
+							}
+						],
+						paymentMethods: [
+							"YANDEX",
+							"APPLE_PAY",
+							"GOOGLE_PAY",
+							"TINKOFF_CREDIT",
+							"TINKOFF_INSTALLMENTS",
+							"SBP"
+						]
+					}],
 					items: result,
 					paymentMethods: [
 						"YANDEX",
