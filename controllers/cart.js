@@ -65,32 +65,32 @@ class CartController {
 				})
 			}
 
-			if (total >= 2) {
-				deliveryOptions.push({
-					type: "DELIVERY",
-					price: 0,
-					serviceName: "yandex_delivery",
-					dates: {
-						fromDate: formattedDate,
-						toDate: formattedDate,
-						intervals: [
-							{
-								date: formattedDate,
-								fromTime: "10:00",
-								toTime: "23:00"
-							}
-						]
-					},
-					paymentMethods: [
-						"YANDEX",
-						"APPLE_PAY",
-						"GOOGLE_PAY",
-						"TINKOFF_CREDIT",
-						"TINKOFF_INSTALLMENTS",
-						"SBP"
-					]
-				})
-			}
+			// if (total >= 2) {
+			// 	deliveryOptions.push({
+			// 		type: "DELIVERY",
+			// 		price: 0,
+			// 		serviceName: "yandex_delivery",
+			// 		dates: {
+			// 			fromDate: formattedDate,
+			// 			toDate: formattedDate,
+			// 			intervals: [
+			// 				{
+			// 					date: formattedDate,
+			// 					fromTime: "10:00",
+			// 					toTime: "23:00"
+			// 				}
+			// 			]
+			// 		},
+			// 		paymentMethods: [
+			// 			"YANDEX",
+			// 			"APPLE_PAY",
+			// 			"GOOGLE_PAY",
+			// 			"TINKOFF_CREDIT",
+			// 			"TINKOFF_INSTALLMENTS",
+			// 			"SBP"
+			// 		]
+			// 	})
+			// }
 
 			return res.json({
 				cart: {
