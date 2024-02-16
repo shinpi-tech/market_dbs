@@ -8,7 +8,8 @@ class CartController {
 		try {
 			if (process.env.AUTH_TOKEN_MAIN !== req.headers.authorization && process.env.AUTH_TOKEN_PFO !== req.headers.authorization)
 				throw ApiError.forbidden('Токен авторизации не верный.')
-			
+
+			let total = 0
 			const today = new Date()
 			let futureDate = new Date(today)
 			futureDate.setDate(today.getDate() + 2)
@@ -27,16 +28,67 @@ class CartController {
 					storage: '64c7d6f9e9febe6aa7cf946a'
 				}
 			})).data
+			const deliveryOptions = [{
+				price: 0,
+				type: "PICKUP",
+				serviceName: "yandex_delivery",
+				dates: {
+					fromDate: formattedDate,
+					toDate: formattedDate
+				},
+				outlets: [
+					{
+						code: "yandex_delivery"
+					}
+				],
+				paymentMethods: [
+					"YANDEX",
+					"APPLE_PAY",
+					"GOOGLE_PAY",
+					"TINKOFF_CREDIT",
+					"TINKOFF_INSTALLMENTS",
+					"SBP"
+				]
+			}]
 
 			for (const el of items) {
 				const pr = await stocks.find(find => find.product === el.offerId)
 				const count = pr ? pr.stocks[0].quantity < 4 ? 0 : pr.stocks[0].quantity : 0
+
+				total = total + count
 
 				result.push({
 					feedId: el.feedId,
 					offerId: el.offerId,
 					count: count,
 					sellerInn: "526106573390"
+				})
+			}
+
+			if (total >= 2) {
+				deliveryOptions.push({
+					type: "DELIVERY",
+					price: 0,
+					serviceName: "yandex_delivery",
+					dates: {
+						fromDate: formattedDate,
+						toDate: formattedDate,
+						intervals: [
+							{
+								date: formattedDate,
+								fromTime: "10:00",
+								toTime: "23:00"
+							}
+						]
+					},
+					paymentMethods: [
+						"YANDEX",
+						"APPLE_PAY",
+						"GOOGLE_PAY",
+						"TINKOFF_CREDIT",
+						"TINKOFF_INSTALLMENTS",
+						"SBP"
+					]
 				})
 			}
 
@@ -67,51 +119,7 @@ class CartController {
 					// 		"SBP"
 					// 	]
 					// }],
-					deliveryOptions: [{
-						price: 0,
-						type: "PICKUP",
-						serviceName: "yandex_delivery",
-						dates: {
-							fromDate: formattedDate,
-							toDate: formattedDate
-						},
-						outlets: [
-							{
-								code: "yandex_delivery"
-							}
-						],
-						paymentMethods: [
-							"YANDEX",
-							"APPLE_PAY",
-							"GOOGLE_PAY",
-							"TINKOFF_CREDIT",
-							"TINKOFF_INSTALLMENTS",
-							"SBP"
-						]
-					}, {
-						type: "DELIVERY",
-						price: 0,
-						serviceName: "yandex_delivery",
-						dates: {
-							fromDate: formattedDate,
-							toDate: formattedDate,
-							intervals: [
-								{
-									date: formattedDate,
-									fromTime: "10:00",
-									toTime: "23:00"
-								}
-							]
-						},
-						paymentMethods: [
-							"YANDEX",
-							"APPLE_PAY",
-							"GOOGLE_PAY",
-							"TINKOFF_CREDIT",
-							"TINKOFF_INSTALLMENTS",
-							"SBP"
-						]
-					}],
+					deliveryOptions: deliveryOptions,
 					items: result,
 					paymentMethods: [
 						"YANDEX",
