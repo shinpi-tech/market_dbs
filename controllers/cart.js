@@ -119,7 +119,7 @@ class CartController {
 					// 		"SBP"
 					// 	]
 					// }],
-					deliveryOptions: deliveryOptions,
+					deliveryOptions: [],
 					items: result,
 					paymentMethods: [
 						"YANDEX",
