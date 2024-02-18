@@ -30,17 +30,12 @@ class CartController {
 			})).data
 			const deliveryOptions = [{
 				price: 0,
-				type: "PICKUP",
+				type: "DELIVERY",
 				serviceName: "yandex_delivery",
 				dates: {
 					fromDate: formattedDate,
 					toDate: formattedDate
 				},
-				outlets: [
-					{
-						code: "yandex_delivery"
-					}
-				],
 				paymentMethods: [
 					"YANDEX",
 					"APPLE_PAY",
@@ -120,7 +115,7 @@ class CartController {
 					// 		"SBP"
 					// 	]
 					// }],
-					deliveryOptions: [],
+					deliveryOptions: deliveryOptions,
 					items: result,
 					paymentMethods: [
 						"YANDEX",
