@@ -34,7 +34,14 @@ class CartController {
 				serviceName: "yandex_delivery",
 				dates: {
 					fromDate: formattedDate,
-					toDate: formattedDate
+					toDate: formattedDate,
+					intervals: [
+						{
+							date: formattedDate,
+							fromTime: "10:00",
+							toTime: "23:00"
+						}
+					]
 				},
 				paymentMethods: [
 					"YANDEX",
