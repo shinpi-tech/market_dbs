@@ -61,6 +61,7 @@ class CartController {
 					feedId: el.feedId,
 					offerId: el.offerId,
 					count: count,
+					delivery: true,
 					sellerInn: "526106573390"
 				})
 			}
