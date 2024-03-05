@@ -30,7 +30,7 @@ class StocksController {
 				} else {
 					result.push({
 						sku: el,
-						warehouseId: warehouseId,
+						warehouseId: 552398,
 						items: [
 							{
 								type: 'FIT',
