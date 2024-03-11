@@ -15,9 +15,7 @@ const points = async (region) => {
 	const dates = {
 		fromDate: fromDate.toLocaleDateString("ru-RU").toString().replace(/\./g, "-"),
 		toDate: toDate.toLocaleDateString("ru-RU").toString().replace(/\./g, "-"),
-	};
-
-	console.log(dates)
+	}
 
 	const result = {
 		price: 0,
