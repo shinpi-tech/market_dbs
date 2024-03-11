@@ -12,11 +12,7 @@ const points = async (region) => {
 			fromDate: Number(hasRegion.minDeliveryDays) + 1,
 			toDate: Number(hasRegion.maxDeliveryDays) + 1,
 		},
-		outlets: [
-			{
-				code: "Яндекс Доставка"
-			}
-		],
+		outlets: [],
 		paymentMethods: [
 			"YANDEX",
 			"APPLE_PAY",
@@ -28,6 +24,7 @@ const points = async (region) => {
 	}
 
 	const points = await getPoints(hasRegion.code)
+	if (!points) return result
 
 	for (const point of points) {
 		result.outlets.push({ code: point.id })
