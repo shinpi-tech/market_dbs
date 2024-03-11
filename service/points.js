@@ -4,14 +4,26 @@ const points = async (region) => {
 	const hasRegion = regionId(region)
 
 	if (!hasRegion) return []
+
+	const today = new Date();
+	const minDays = Number(hasRegion.minDeliveryDays) + 1
+	const maxDays = Number(hasRegion.maxDeliveryDays) + 1
+
+	const fromDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + minDays)
+	const toDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + maxDays)
+
+	const dates = {
+		fromDate: fromDate.toLocaleDateString("ru-RU").toString().replace(/\./g, "-"),
+		toDate: toDate.toLocaleDateString("ru-RU").toString().replace(/\./g, "-"),
+	};
+
+	console.log(dates)
+
 	const result = {
 		price: 0,
 		type: "PICKUP",
 		serviceName: "yandex_delivery",
-		dates: {
-			fromDate: Number(hasRegion.minDeliveryDays) + 1,
-			toDate: Number(hasRegion.maxDeliveryDays) + 1,
-		},
+		dates: dates,
 		outlets: [],
 		paymentMethods: [
 			"YANDEX",
