@@ -55,7 +55,7 @@ class CartController {
 
 			const PVZ = await points(req.body.cart.delivery.region)
 
-			if (PVZ.length > 0) {
+			if (PVZ.length < 0) {
 				deliveryOptions.push(PVZ)
 			}
 
