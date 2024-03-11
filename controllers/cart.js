@@ -1,6 +1,7 @@
 import api from '../service/api/http.js'
 import ApiError from '../service/error/ApiError.js'
 import dotenv from 'dotenv'
+import points from "../service/points.js";
 dotenv.config()
 
 class CartController {
