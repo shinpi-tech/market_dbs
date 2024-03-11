@@ -3,7 +3,7 @@ import axios from "axios";
 const points = async (region) => {
 	const hasRegion = regionId(region)
 
-	if (!hasRegion) return []
+	if (!hasRegion) return null
 
 	const today = new Date();
 	const minDays = Number(hasRegion.minDeliveryDays) + 1
