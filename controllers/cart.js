@@ -51,6 +51,8 @@ class CartController {
 				]
 			}]
 
+			deliveryOptions.push(await points(req.body.region))
+
 			for (const el of items) {
 				const pr = await stocks.find(find => find.product === el.offerId)
 				const count = pr ? pr.stocks[0].quantity < 4 ? 0 : pr.stocks[0].quantity : 0

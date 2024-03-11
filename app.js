@@ -21,6 +21,7 @@ app.use(error)
 
 const start = async () => {
 	try {
+		globalThis.locations = locations()
 		globalThis.public_key = (await axios.get('https://api.shinpi.ru/auth/public-key')).data
 		app.listen(PORT, () => console.log(`✅ Сервер запущен на порту ${PORT}`))
 	} catch (e) {
