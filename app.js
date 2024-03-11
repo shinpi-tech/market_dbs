@@ -4,6 +4,8 @@ import dotenv from 'dotenv'
 import router from './routes/index.js'
 import error from './middleware/error.js'
 import axios from 'axios'
+import locations from './service/locations.js'
+
 // import morgan from 'morgan'
 dotenv.config()
 
