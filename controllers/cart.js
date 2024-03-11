@@ -53,7 +53,11 @@ class CartController {
 				]
 			}]
 
-			deliveryOptions.push(await points(req.body.cart.delivery.region))
+			const PVZ = await points(req.body.cart.delivery.region)
+
+			if (PVZ.length > 0) {
+				deliveryOptions.push(PVZ)
+			}
 
 			for (const el of items) {
 				const pr = await stocks.find(find => find.product === el.offerId)
