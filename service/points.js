@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const points = async (region) => {
+	console.log('123123123')
 	const hasRegion = regionId(region)
 
 	if (!hasRegion) return []
@@ -34,6 +35,8 @@ const points = async (region) => {
 }
 
 const regionId = (region) => {
+
+	console.log(region)
 	if (globalThis.locations.has(region.id)) {
 		return globalThis.locations.get(region.id)
 	}

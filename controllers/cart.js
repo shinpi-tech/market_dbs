@@ -7,8 +7,8 @@ dotenv.config()
 class CartController {
 	async post (req, res, next) {
 		try {
-			if (process.env.AUTH_TOKEN_MAIN !== req.headers.authorization && process.env.AUTH_TOKEN_PFO !== req.headers.authorization)
-				throw ApiError.forbidden('Токен авторизации не верный.')
+			// if (process.env.AUTH_TOKEN_MAIN !== req.headers.authorization && process.env.AUTH_TOKEN_PFO !== req.headers.authorization)
+			// 	throw ApiError.forbidden('Токен авторизации не верный.')
 
 			let total = 0
 			const today = new Date()
@@ -19,7 +19,7 @@ class CartController {
 			const year = futureDate.getFullYear()
    
 			const formattedDate = `${day}-${month}-${year}`
-			
+
 			const items = req.body.cart.items
 			const ids = [...new Set(items.map(el => el.offerId))]
 			const result = []
@@ -29,6 +29,7 @@ class CartController {
 					storage: '64c7d6f9e9febe6aa7cf946a'
 				}
 			})).data
+
 			const deliveryOptions = [{
 				price: 0,
 				type: "PICKUP",
@@ -52,7 +53,9 @@ class CartController {
 				]
 			}]
 
-			deliveryOptions.push(await points(req.body.region))
+			// console.log(req.body.cart.delivery.region)
+
+			deliveryOptions.push(await points(req.body.cart.delivery.region))
 
 			for (const el of items) {
 				const pr = await stocks.find(find => find.product === el.offerId)
