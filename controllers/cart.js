@@ -53,8 +53,6 @@ class CartController {
 				]
 			}]
 
-			// console.log(req.body.cart.delivery.region)
-
 			deliveryOptions.push(await points(req.body.cart.delivery.region))
 
 			for (const el of items) {
