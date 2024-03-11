@@ -69,3 +69,5 @@ const getPoints = async (regionCode) => {
 			return null
 		})
 }
+
+export default points
