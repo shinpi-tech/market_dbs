@@ -7,8 +7,7 @@ dotenv.config()
 class CartController {
 	async post (req, res, next) {
 		try {
-			// if (process.env.AUTH_TOKEN_MAIN !== req.headers.authorization && process.env.AUTH_TOKEN_PFO !== req.headers.authorization)
-			// 	throw ApiError.forbidden('Токен авторизации не верный.')
+			if (process.env.AUTH_TOKEN_MAIN !== req.headers.authorization && process.env.AUTH_TOKEN_PFO !== req.headers.authorization) throw ApiError.forbidden('Токен авторизации не верный.')
 
 			let total = 0
 			const today = new Date()

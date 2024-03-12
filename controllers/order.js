@@ -59,6 +59,14 @@ class OrderController {
 			next(e)
 		}
 	}
+
+	async cancellation (req, res, next) {
+		try {
+			return res.json('ok')
+		} catch (e) {
+			next(e)
+		}
+	}
 }
 
 export default new OrderController()
