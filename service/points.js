@@ -5,9 +5,15 @@ const points = async (region) => {
 
 	if (!hasRegion) return null
 
-	const today = new Date();
-	const minDays = Number(hasRegion.minDeliveryDays) + 1
-	const maxDays = Number(hasRegion.maxDeliveryDays) + 1
+	const today = new Date()
+	const hours = today.getHours()
+	const dayOfWeek = today.getDay()
+
+	let sumNum = hours > 18 ? 2 : 1
+	dayOfWeek === 6 ? sumNum = 2 : null
+
+	const minDays = Number(hasRegion.minDeliveryDays) + sumNum
+	const maxDays = Number(hasRegion.maxDeliveryDays) + sumNum
 
 	const fromDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + minDays)
 	const toDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + maxDays)
