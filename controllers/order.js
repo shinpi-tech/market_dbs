@@ -24,13 +24,13 @@ class OrderController {
 			
 			return await api.post('https://api.shinpi.ru/stocks/orders/', orderProducts)
 				.then(async response => {
-					let notification = `✅ Заказ Яндекс Маркет DBS <code>${order_number}</code> на сумму <code>${req.body.order.buyerItemsTotal}</code> ₽. Отгрузка: ${req.body.order.delivery.shipments[0].shipmentDate}\r\n`
+					let notification = `✅ Заказ Яндекс Маркет DBS <code>${order_number}</code> на сумму <code>${req.body.order.totalWithSubsidy}</code> ₽. Отгрузка: ${req.body.order.delivery.shipments[0].shipmentDate}\r\n`
 
 					for (const el of items) {
 						if (response.data.ok.includes(el.offerId)) {
-							notification = notification + `\r\n - ${el.offerName} - ${el.count} шт.`
+							notification = notification + `\r\n - ${el.offerName} - ${el.count} шт.\r\n${el.offerId}`
 						} else {
-							notification = notification + `\r\n - ${el.offerName} - ${el.count} шт. (заказать не получилось)`
+							notification = notification + `\r\n - ${el.offerName} - ${el.count} шт. (заказать не получилось)\r\n${el.offerId}`
 						}
 					}
 
