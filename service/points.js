@@ -11,6 +11,7 @@ const points = async (region) => {
 
 	let sumNum = hours > 18 ? 2 : 1
 	dayOfWeek === 6 ? sumNum = 2 : null
+	dayOfWeek === 5 && hours > 18 ? sumNum = 3 : null
 
 	const minDays = Number(hasRegion.minDeliveryDays) + sumNum
 	const maxDays = Number(hasRegion.maxDeliveryDays) + sumNum
