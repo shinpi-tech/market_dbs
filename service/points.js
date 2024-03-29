@@ -16,12 +16,12 @@ const points = async (region) => {
 	const minDays = Number(hasRegion.minDeliveryDays) + sumNum
 	const maxDays = Number(hasRegion.maxDeliveryDays) + sumNum
 
-	const fromDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + minDays)
-	const toDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + maxDays)
+	const fromDatePre = new Date(today.getFullYear(), today.getMonth(), today.getDate() + minDays)
+	const toDatePre = new Date(today.getFullYear(), today.getMonth(), today.getDate() + maxDays)
 
 	const dates = {
-		fromDate: fromDate.toLocaleDateString("ru-RU").toString().replace(/\./g, "-"),
-		toDate: toDate.toLocaleDateString("ru-RU").toString().replace(/\./g, "-"),
+		fromDate: fromDatePre.toLocaleDateString("ru-RU").toString().replace(/\./g, "-"),
+		toDate: toDatePre.toLocaleDateString("ru-RU").toString().replace(/\./g, "-"),
 	}
 
 	const result = {
@@ -45,6 +45,23 @@ const points = async (region) => {
 
 	for (const point of points) {
 		result.outlets.push({ code: point.id })
+	}
+
+	const getDeliveryDay = await getDeliveryDays(result.outlets[0].code)
+	if (!getDeliveryDay) return result
+
+	const deliveryDay = new Date(getDeliveryDay.data.offers[0].from)
+
+	let sumDays = hours > 18 ? 2 : 1
+	dayOfWeek === 6 ? sumDays = 2 : null
+	dayOfWeek === 5 && hours > 18 ? sumDays = 3 : null
+
+	const fromDate = new Date(deliveryDay.getFullYear(), deliveryDay.getMonth(), deliveryDay.getDate() + sumDays)
+	const toDate = new Date(deliveryDay.getFullYear(), deliveryDay.getMonth(), deliveryDay.getDate() + (sumDays + 2))
+
+	result.dates = {
+		fromDate: fromDate.toLocaleDateString("ru-RU").toString().replace(/\./g, "-"),
+		toDate: toDate.toLocaleDateString("ru-RU").toString().replace(/\./g, "-"),
 	}
 
 	return result
@@ -82,6 +99,17 @@ const getPoints = async (regionCode) => {
 		.catch(() => {
 			return null
 		})
+}
+
+const getDeliveryDays = async (point_id) => {
+	return await axios.get('https://b2b-authproxy.taxi.yandex.net/api/b2b/platform/offers/info', {
+		headers: { 'Authorization': 'Bearer y0_AgAAAABxD-QaAAc6MQAAAAD7QrfLAABsQcSF_SFCnLwJBVv0u0IDKb__ww' },
+		params: {
+			station_id: "ed5f4f01-33db-41fb-b48e-6b24784dc63f",
+			self_pickup_id: point_id,
+			send_unix: false
+		}
+	})
 }
 
 export default points
