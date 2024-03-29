@@ -57,7 +57,7 @@ const points = async (region) => {
 	dayOfWeek === 5 && hours > 18 ? sumDays = 3 : null
 
 	const fromDate = new Date(deliveryDay.getFullYear(), deliveryDay.getMonth(), deliveryDay.getDate() + sumDays)
-	const toDate = new Date(deliveryDay.getFullYear(), deliveryDay.getMonth(), deliveryDay.getDate() + (sumDays + 2))
+	const toDate = new Date(deliveryDay.getFullYear(), deliveryDay.getMonth(), deliveryDay.getDate() + (sumDays + 1))
 
 	result.dates = {
 		fromDate: fromDate.toLocaleDateString("ru-RU").toString().replace(/\./g, "-"),
