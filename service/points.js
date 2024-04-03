@@ -50,6 +50,9 @@ const points = async (region) => {
 	return await getDeliveryDays(result.outlets[0].code)
 		.then(getDeliveryDay => {
 			if (!getDeliveryDay) return result
+			if (!getDeliveryDay.data) return result
+			if (!getDeliveryDay.data.offers) return result
+			if (!getDeliveryDay.data.offers[0]) return result
 
 			const deliveryDay = new Date(getDeliveryDay.data.offers[0].from)
 
