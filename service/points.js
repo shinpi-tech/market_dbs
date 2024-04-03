@@ -9,9 +9,9 @@ const points = async (region) => {
 	const hours = today.getHours()
 	const dayOfWeek = today.getDay()
 
-	let sumNum = hours > 18 ? 2 : 1
-	dayOfWeek === 6 ? sumNum = 2 : null
-	dayOfWeek === 5 && hours > 18 ? sumNum = 3 : null
+	let sumNum = hours > 18 ? 4 : 3
+	dayOfWeek === 6 ? sumNum + 1 : null
+	dayOfWeek === 5 ? sumNum + 2 : null
 
 	const minDays = Number(hasRegion.minDeliveryDays) + sumNum
 	const maxDays = Number(hasRegion.maxDeliveryDays) + sumNum
@@ -47,24 +47,29 @@ const points = async (region) => {
 		result.outlets.push({ code: point.id })
 	}
 
-	const getDeliveryDay = await getDeliveryDays(result.outlets[0].code)
-	if (!getDeliveryDay) return result
+	return await getDeliveryDays(result.outlets[0].code)
+		.then(getDeliveryDay => {
+			if (!getDeliveryDay) return result
 
-	const deliveryDay = new Date(getDeliveryDay.data.offers[0].from)
+			const deliveryDay = new Date(getDeliveryDay.data.offers[0].from)
 
-	let sumDays = hours > 18 ? 3 : 2
-	dayOfWeek === 5 && hours > 18 ? sumDays = 4 : null
-	dayOfWeek === 6 ? sumDays + 1 : null
+			let sumDays = hours > 18 ? 3 : 2
+			dayOfWeek === 5 && hours > 18 ? sumDays = 4 : null
+			dayOfWeek === 6 ? sumDays + 1 : null
 
-	const fromDate = new Date(deliveryDay.getFullYear(), deliveryDay.getMonth(), deliveryDay.getDate() + sumDays)
-	const toDate = new Date(deliveryDay.getFullYear(), deliveryDay.getMonth(), deliveryDay.getDate() + (sumDays + 2))
+			const fromDate = new Date(deliveryDay.getFullYear(), deliveryDay.getMonth(), deliveryDay.getDate() + sumDays)
+			const toDate = new Date(deliveryDay.getFullYear(), deliveryDay.getMonth(), deliveryDay.getDate() + (sumDays + 2))
 
-	result.dates = {
-		fromDate: fromDate.toLocaleDateString("ru-RU").toString().replace(/\./g, "-"),
-		toDate: toDate.toLocaleDateString("ru-RU").toString().replace(/\./g, "-"),
-	}
+			result.dates = {
+				fromDate: fromDate.toLocaleDateString("ru-RU").toString().replace(/\./g, "-"),
+				toDate: toDate.toLocaleDateString("ru-RU").toString().replace(/\./g, "-"),
+			}
 
-	return result
+			return result
+		})
+		.catch(() => {
+			return result
+		})
 }
 
 const regionId = (region) => {
