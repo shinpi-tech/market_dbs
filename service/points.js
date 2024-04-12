@@ -57,8 +57,8 @@ const points = async (region) => {
 			const deliveryDay = new Date(getDeliveryDay.data.offers[0].from)
 
 			let sumDays = hours > 18 ? 5 : 4
-			dayOfWeek === 5 && hours > 18 ? sumDays + 2 : null
-			dayOfWeek === 6 ? sumDays + 1 : null
+			dayOfWeek === 5 && hours > 18 ? sumDays + 3 : null
+			dayOfWeek === 6 ? sumDays + 2 : null
 
 			const fromDate = new Date(deliveryDay.getFullYear(), deliveryDay.getMonth(), deliveryDay.getDate() + sumDays)
 			const toDate = new Date(deliveryDay.getFullYear(), deliveryDay.getMonth(), deliveryDay.getDate() + (sumDays + 2))
