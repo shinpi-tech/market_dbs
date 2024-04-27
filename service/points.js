@@ -13,6 +13,9 @@ const points = async (region) => {
 	dayOfWeek === 6 ? sumNum + 1 : null
 	dayOfWeek === 5 ? sumNum + 2 : null
 
+	dayOfWeek === 1 ? sumNum + 2 : null
+	dayOfWeek === 2 ? sumNum + 1 : null
+
 	const minDays = Number(hasRegion.minDeliveryDays) + sumNum
 	const maxDays = Number(hasRegion.maxDeliveryDays) + sumNum
 
