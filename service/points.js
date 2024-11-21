@@ -25,7 +25,7 @@ const points = async (region) => {
 	}
 
 	const result = {
-		price: 0,
+		price: 500,
 		type: "PICKUP",
 		serviceName: "yandex_delivery",
 		dates: dates,
@@ -98,7 +98,7 @@ const getPoints = async (regionCode) => {
 			type: "pickup_point"
 		},
 		{ headers:
-				{ 'Authorization': 'Bearer y0_AgAAAABxD-QaAAc6MQAAAAD7QrfLAABsQcSF_SFCnLwJBVv0u0IDKb__ww' }
+				{ 'Authorization': 'Bearer y0_AgAAAAB389N-AAc6MQAAAAEV_TzBAADTLEwIiZtFAL2L-xfQUaRrFZDg_g' }
 		})
 		.then(res => {
 			if (res.data.points.length > 0) {
@@ -112,7 +112,7 @@ const getPoints = async (regionCode) => {
 
 const getDeliveryDays = async (point_id) => {
 	return await axios.get('https://b2b-authproxy.taxi.yandex.net/api/b2b/platform/offers/info', {
-		headers: { 'Authorization': 'Bearer y0_AgAAAABxD-QaAAc6MQAAAAD7QrfLAABsQcSF_SFCnLwJBVv0u0IDKb__ww' },
+		headers: { 'Authorization': 'Bearer y0_AgAAAAB389N-AAc6MQAAAAEV_TzBAADTLEwIiZtFAL2L-xfQUaRrFZDg_g' },
 		params: {
 			station_id: "ed5f4f01-33db-41fb-b48e-6b24784dc63f",
 			self_pickup_id: point_id,
