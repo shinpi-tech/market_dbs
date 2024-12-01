@@ -32,7 +32,7 @@ class CartController {
 			const deliveryOptions = [{
 				price: 500,
 				type: "PICKUP",
-				serviceName: "yandex_delivery",
+				serviceName: "Самовывоз",
 				dates: {
 					fromDate: formattedDate,
 					toDate: formattedDate,

@@ -27,7 +27,7 @@ const points = async (region) => {
 	const result = {
 		price: 500,
 		type: "PICKUP",
-		serviceName: "yandex_delivery",
+		serviceName: "Самовывоз",
 		dates: dates,
 		outlets: [],
 		paymentMethods: [
