@@ -9,12 +9,12 @@ const points = async (region) => {
 	const hours = today.getHours()
 	const dayOfWeek = today.getDay()
 
-	let sumNum = hours > 18 ? 6 : 5
-	dayOfWeek === 6 ? sumNum + 1 : null
-	dayOfWeek === 5 ? sumNum + 2 : null
+	let sumDays = hours > 18 ? 5 : 4
+	dayOfWeek === 5 ? sumDays + 3 : null
+	dayOfWeek === 6 ? sumDays + 2 : null
 
-	const minDays = Number(hasRegion.minDeliveryDays) + sumNum
-	const maxDays = Number(hasRegion.maxDeliveryDays) + sumNum
+	const minDays = Number(hasRegion.minDeliveryDays) + sumDays
+	const maxDays = Number(hasRegion.maxDeliveryDays) + sumDays
 
 	const fromDatePre = new Date(today.getFullYear(), today.getMonth(), today.getDate() + minDays)
 	const toDatePre = new Date(today.getFullYear(), today.getMonth(), today.getDate() + maxDays)
@@ -27,7 +27,7 @@ const points = async (region) => {
 	const result = {
 		price: 500,
 		type: "PICKUP",
-		serviceName: "Самовывоз",
+		serviceName: "Яндекс.Доставка",
 		dates: dates,
 		outlets: [],
 		paymentMethods: [
@@ -57,7 +57,6 @@ const points = async (region) => {
 			const deliveryDay = new Date(getDeliveryDay.data.offers[0].from)
 
 			let sumDays = hours > 18 ? 5 : 4
-			// dayOfWeek === 5 && hours > 18 ? sumDays + 3 : null
 			dayOfWeek === 5 ? sumDays + 3 : null
 			dayOfWeek === 6 ? sumDays + 2 : null
 
