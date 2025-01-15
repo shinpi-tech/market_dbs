@@ -10,6 +10,12 @@ class CartController {
 			if (process.env.AUTH_TOKEN_MAIN !== req.headers.authorization && process.env.AUTH_TOKEN_PFO !== req.headers.authorization) throw ApiError.forbidden('Токен авторизации не верный.')
 
 			let total = 0
+			const today = new Date()
+			let futureDate = new Date(today)
+			futureDate.setDate(today.getDate() + 2)
+			const day = futureDate.getDate().toString().padStart(2, '0')
+			const month = (futureDate.getMonth() + 1).toString().padStart(2, '0')
+			const year = futureDate.getFullYear()
    
 			const formattedDate = `${day}-${month}-${year}`
 
