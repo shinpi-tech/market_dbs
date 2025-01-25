@@ -9,9 +9,9 @@ const points = async (region) => {
 	const hours = today.getHours()
 	const dayOfWeek = today.getDay()
 
-	let sumDays = hours > 18 ? 1 : 2
-	dayOfWeek === 5 ? sumDays + 3 : null
-	dayOfWeek === 6 ? sumDays + 2 : null
+	let sumDays = hours > 18 ? 2 : 3
+	dayOfWeek === 5 ? sumDays + 2 : null
+	dayOfWeek === 6 ? sumDays + 1 : null
 
 	const minDays = Number(hasRegion.minDeliveryDays) + sumDays
 	const maxDays = Number(hasRegion.maxDeliveryDays) + sumDays
